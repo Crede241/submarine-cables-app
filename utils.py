@@ -6,6 +6,14 @@ DATA_DIR    = os.path.join(os.path.dirname(__file__), "data")
 CABLES_PATH = os.path.join(DATA_DIR, "cables.json")
 LP_PATH     = os.path.join(DATA_DIR, "landing_points.json")
 
+def _to_list(v):
+    if isinstance(v, list):
+        return v
+    if isinstance(v, str) and v:
+        return [o.strip() for o in v.split(",") if o.strip()]
+    return []
+
+
 _MISSING_MSG = (
     "Les données locales sont absentes. "
     "Lance d'abord :\n\n```\npython fetch_data.py\n```"
@@ -25,8 +33,8 @@ def load_cables_df() -> pd.DataFrame:
         "rfs":      c.get("rfs", ""),
         "rfs_year": c.get("rfs_year"),
         "length":   c.get("length", ""),
-        "owners":   c.get("owners", []),
-        "n_owners": len(c.get("owners", [])),
+        "owners":   _to_list(c.get("owners", [])),
+        "n_owners": len(_to_list(c.get("owners", []))),
         "n_lp":     c.get("n_lp", len(c.get("landing_points", []))),
         "is_planned": c.get("is_planned", False),
         "landing_point_ids": [lp["id"] if isinstance(lp, dict) else lp

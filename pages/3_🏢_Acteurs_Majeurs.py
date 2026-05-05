@@ -21,9 +21,21 @@ GAFAM = {"Google", "Meta", "Amazon", "Microsoft", "Apple"}
 def get_category(owner):
     if owner in GAFAM:
         return "🔴 GAFAM"
-    for kw in ["Telecom", "Telecoms", "Telekom", "Orange", "AT&T", "NTT", "Verizon",
-               "BT ", "Deutsche", "Telia", "Singtel", "STC", "Vodafone", "China",
-               "KDDI", "Softbank", "Lumen", "Zayo", "GTT"]:
+    telco_kw = [
+        "Telecom", "Telecoms", "Telekom", "Telephone", "Telefonica", "Telefónica",
+        "Orange", "AT&T", "NTT", "Verizon", "BT ", "Deutsche", "Telia",
+        "Singtel", "STC", "Vodafone", "China", "KDDI", "Softbank", "Lumen",
+        "Zayo", "GTT", "Alcatel", "SubCom", "Submarine", "Cable & Wireless",
+        "Sparkle", "PCCW", "Tata", "Reliance", "Bharti", "Airtel", "MTN",
+        "Telstra", "TPG", "Optus", "Chunghwa", "KT Corp", "SK Telecom",
+        "Saudi Telecom", "Etisalat", "e&", "Ooredoo", "BSNL", "VSNL",
+        "Turkcell", "Swisscom", "Proximus", "KPN", "Telenet", "Telenor",
+        "Globe", "PLDT", "Indosat", "Telkom", "Axiata", "Maxis", "Digi",
+        "TIM", "Telecom Italia", "Colt", "Cogent", "CenturyLink",
+        "Communications", "Network", "Networks", "Bandwidth",
+        "GCI", "Liberty", "Comcast", "Charter", "Cox ",
+    ]
+    for kw in telco_kw:
         if kw.lower() in owner.lower():
             return "🔵 Opérateur Télécoms"
     return "🟡 Autre / Inconnu"

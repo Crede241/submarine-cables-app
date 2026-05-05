@@ -63,14 +63,19 @@ def fetch_all_cables():
 
     cables = []
     for c in results.values():
+        def _split(v):
+            if isinstance(v, list): return v
+            if isinstance(v, str) and v: return [o.strip() for o in v.split(",") if o.strip()]
+            return []
+
         cables.append({
             "id":          c.get("id", ""),
             "name":        c.get("name", ""),
             "rfs":         c.get("rfs", ""),
             "rfs_year":    c.get("rfs_year"),
             "length":      c.get("length", ""),
-            "owners":      c.get("owners", []),
-            "suppliers":   c.get("suppliers", []),
+            "owners":      _split(c.get("owners", [])),
+            "suppliers":   _split(c.get("suppliers", [])),
             "is_planned":  c.get("is_planned", False),
             "n_lp":        len(c.get("landing_points", [])),
             "landing_points": [
